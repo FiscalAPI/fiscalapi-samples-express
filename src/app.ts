@@ -4,7 +4,7 @@ import { specs } from './config/swagger';
 import todoRoutes from './routes/todoRoutes';
 import config from './config/config';
 import productRoutes from './routes/productRoutes';
-
+import invoiceRoutes from './routes/invoiceRoutes';
 // Crear aplicación express
 const app: Application = express();
 const PORT: number = config.port;
@@ -24,6 +24,7 @@ app.get('/', (req: Request, res: Response) => {
 // Rutas para el recurso todos
 app.use('/api/todos', todoRoutes);
 app.use('/api/products', productRoutes);
+app.use('/api/invoices', invoiceRoutes);
 
 // Middleware para manejo de errores
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
