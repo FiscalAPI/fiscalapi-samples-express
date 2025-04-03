@@ -1,0 +1,49 @@
+{
+  "name": "fiscalapi-samples-express",
+  "version": "1.0.0",
+  "description": "Fiscalapi Ejemplos Express JS",
+  "main": "dist/app.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/app.js",
+    "dev": "nodemon --exec ts-node src/app.ts"
+  },
+  "keywords": [
+    "express",
+    "fiscalapi",
+    "facturacion-electronica",
+    "cdfi",
+    "comprobante-digital-fiscal",
+    "api-rest",
+    "nodejs",
+    "typescript",
+    "sat",
+    "cfdi",
+    "factura",
+    "comprobante",
+    "fiscal",
+    "api",
+    "node",
+    "expressjs",
+    "fiscalapi-samples-express"
+  ],
+  "author": "Fiscalapi",
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.14.0",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
+    "@types/uuid": "^10.0.0",
+    "express": "^5.1.0",
+    "fiscalapi": "^4.0.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
