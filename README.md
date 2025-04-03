@@ -135,8 +135,8 @@ Este proyecto está licenciado bajo la Licencia **MPL-2.0**. Consulta el archivo
 ## 🔗 Enlaces Útiles
 - [Documentación Oficial](https://docs.fiscalapi.com)  
 - [Portal de FiscalAPI](https://fiscalapi.com)  
-- [Ejemplos Node.js](https://github.com/FiscalAPI/fiscalapi-samples-node)  
-- [Ejemplos Express](https://github.com/FiscalAPI/fiscalapi-samples-node-express)
+- [SDK Node.js](https://github.com/FiscalAPI/fiscalapi-node)  
+- [Mas ejemplos](https://github.com/FiscalAPI/fiscalapi-samples-express/tree/main/src/examples)
 
 ---
 Desarrollado con ❤️ por [Fiscalapi](https://www.fiscalapi.com)
