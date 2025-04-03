@@ -30,11 +30,13 @@
   "author": "Fiscalapi",
   "license": "ISC",
   "dependencies": {
+    "@types/dotenv": "^8.2.3",
     "@types/express": "^5.0.1",
     "@types/node": "^22.14.0",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.8",
     "@types/uuid": "^10.0.0",
+    "dotenv": "^16.4.7",
     "express": "^5.1.0",
     "fiscalapi": "^4.0.0",
     "swagger-jsdoc": "^6.2.8",

@@ -2,13 +2,12 @@ import express, { Application, Request, Response, NextFunction } from 'express';
 import swaggerUi from 'swagger-ui-express';
 import { specs } from './config/swagger';
 import todoRoutes from './routes/todoRoutes';
-
-// Instalación de uuid para generar IDs
-// npm install uuid @types/uuid
+import config from './config/config';
+import productRoutes from './routes/productRoutes';
 
 // Crear aplicación express
 const app: Application = express();
-const PORT: number = 3000;
+const PORT: number = config.port;
 
 // Middleware para procesar JSON
 app.use(express.json());
@@ -24,6 +23,7 @@ app.get('/', (req: Request, res: Response) => {
 
 // Rutas para el recurso todos
 app.use('/api/todos', todoRoutes);
+app.use('/api/products', productRoutes);
 
 // Middleware para manejo de errores
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
