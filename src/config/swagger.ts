@@ -6,7 +6,7 @@ const options = {
     info: {
       title: 'Fiscalapi Express',
       version: '1.0.0',
-      description: 'Integracion Express (Nodejs) con Fiscalapi para la Facturacion Electronica',
+      description: 'Integración Fiscalapi con Express (nodejs) para la generación de facturas electrónicas CFDI',
     },
     servers: [
       {
