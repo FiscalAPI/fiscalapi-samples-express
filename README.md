@@ -42,6 +42,13 @@ cp .env.example .env
 npm run dev
 ```
 
+La documentación swagger de la ejemplo está disponible en:
+
+```
+http://localhost:3000/api-docs
+```
+
+
 ## ⚙️ Configuración
 
 ### Variables de Entorno
@@ -98,7 +105,7 @@ curl -X GET http://localhost:3000/api/invoices/pdf/123456
 
 ## 📖 Documentación API
 
-La documentación de la API está disponible en:
+La documentación swagger de la ejemplo está disponible en:
 
 ```
 http://localhost:3000/api-docs
@@ -133,10 +140,12 @@ Utiliza Swagger UI para probar todos los endpoints disponibles.
 Este proyecto está licenciado bajo la Licencia **MPL-2.0**. Consulta el archivo [LICENSE](LICENSE.txt) para más detalles.
 
 ## 🔗 Enlaces Útiles
+
 - [Documentación Oficial](https://docs.fiscalapi.com)  
-- [Portal de FiscalAPI](https://fiscalapi.com)  
-- [SDK Node.js](https://github.com/FiscalAPI/fiscalapi-node)  
-- [Mas ejemplos](https://github.com/FiscalAPI/fiscalapi-samples-express/tree/main/src/examples)
+- [Pagina de FiscalAPI](https://fiscalapi.com)
+- [Ejemplos Express](https://github.com/FiscalAPI/fiscalapi-samples-express)
+- [Ejemplos NestJs](https://github.com/FiscalAPI/fiscalapi-samples-nest)
+- [Más Ejemplos en NodeJs](https://github.com/FiscalAPI/fiscalapi-node/blob/main/examples/all-samples.ts)  
 
 ---
 Desarrollado con ❤️ por [Fiscalapi](https://www.fiscalapi.com)
