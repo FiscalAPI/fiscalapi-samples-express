@@ -37,8 +37,10 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 
 // Iniciar servidor
 app.listen(PORT, () => {
-  console.log(`Servidor ejecutándose en: http://localhost:${PORT}`);
-  console.log(`Documentación Swagger: http://localhost:${PORT}/api-docs`);
+ 
+   console.log();
+   console.warn(`Running on: http://localhost:${PORT}/api-docs`);
+   console.log();
 });
 
 export default app;
