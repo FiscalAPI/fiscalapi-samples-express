@@ -21,7 +21,9 @@ import {
   generatePdfById,
   getXmlById,
   sendInvoiceByValues,
-  sendInvoiceById
+  sendInvoiceById,
+  createFacturaGlobalPorValores,
+  createFacturaGlobalPorReferencias
 } from '../controllers/invoiceController';
 
 const router = Router();
@@ -639,5 +641,39 @@ router.post('/send/by-values', sendInvoiceByValues);
  *         description: Error al enviar factura por correo
  */
 router.post('/send/:id', sendInvoiceById);
+
+
+
+/**
+ * @swagger
+ * /api/invoices/factura-global-por-valores:
+ *   post:
+ *     summary: Crear factura global por valores
+ *     tags: [Invoices]
+ *     description: Crea una factura global con todos los datos del emisor y receptor
+ *     responses:
+ *       200:
+ *         description: Factura global creada exitosamente
+ *       500:
+ *         description: Error al crear factura global por valores
+ */
+router.post('/factura-global-por-valores', createFacturaGlobalPorValores);
+
+/**
+ * @swagger
+ * /api/invoices/factura-global-por-referencias:
+ *   post:
+ *     summary: Crear factura global por referencias
+ *     tags: [Invoices]
+ *     description: Crea una factura global usando IDs de emisor y receptor
+ *     responses:
+ *       200:
+ *         description: Factura global creada exitosamente
+ *       500:
+ *         description: Error al crear factura global por referencias
+ */
+router.post('/factura-global-por-referencias', createFacturaGlobalPorReferencias);
+
+
 
 export default router;

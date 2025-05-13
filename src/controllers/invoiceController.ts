@@ -137,6 +137,145 @@ export const createInvoiceIva16 = async (req: Request, res: Response): Promise<v
   }
 };
 
+// Crear factura global por valores
+export const createFacturaGlobalPorValores = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const globalInvoiceByValues: Invoice = {
+      versionCode: "4.0",
+      series: "F",
+      date: DateTime.now().toFormat("yyyy-MM-dd'T'HH:mm:ss"),
+      paymentFormCode: "01",
+      paymentMethodCode: "PUE",
+      currencyCode: "MXN",
+      typeCode: "I",
+      expeditionZipCode: "01160",
+      exchangeRate: 1,
+      exportCode: "01",
+      globalInformation: {
+        periodicityCode: "01",
+        monthCode: "05",
+        year: 2025
+      },
+      issuer: {
+        tin: "FUNK671228PH6",
+        legalName: "KARLA FUENTE NOLASCO",
+        taxRegimeCode: "621",
+        taxCredentials: [
+          {
+            base64File: base64Cert,
+            fileType: 0,  // CertificateCsd
+            password: password
+          },
+          {
+            base64File: base64Key,
+            fileType: 1,  // PrivateKeyCsd
+            password: password
+          }
+        ]
+      },
+      recipient: {
+        tin: "XAXX010101000",
+        legalName: "PUBLICO EN GENERAL",
+        zipCode: "01160",
+        taxRegimeCode: "616",
+        cfdiUseCode: "S01",
+        email: "someone@somewhere.com"
+      },
+      items: [
+        {
+          itemCode: "01010101",
+          quantity: 1,
+          unitOfMeasurementCode: "ACT",
+          description: "Venta",
+          unitPrice: 1230.00,
+          taxObjectCode: "02",
+          itemSku: "venta0001",
+          itemTaxes: [
+            {
+              taxCode: "002",  // IVA
+              taxTypeCode: "Tasa",
+              taxRate: "0.160000",  // 16%
+              taxFlagCode: "T"  // Traslado
+            }
+          ]
+        }
+      ]
+    };
+
+    const apiResponse = await fiscalapi.invoices.create(globalInvoiceByValues);
+    res.status(200).json(apiResponse);
+  } catch (error) {
+    res.status(500).json({ 
+      succeeded: false, 
+      message: 'Error al crear factura global por valores', 
+      error 
+    });
+  }
+};
+
+// Crear factura global por referencias
+export const createFacturaGlobalPorReferencias = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const globalInvoiceByReferences: Invoice = {
+      versionCode: "4.0",
+      series: "F",
+      exportCode: "01",
+      date: DateTime.now().toFormat("yyyy-MM-dd'T'HH:mm:ss"),
+      paymentFormCode: "01",
+      paymentMethodCode: "PUE",
+      currencyCode: "MXN",
+      typeCode: "I",
+      expeditionZipCode: "01160",
+      exchangeRate: 1,
+      globalInformation: {
+        periodicityCode: "01",
+        monthCode: "05",
+        year: 2025
+      },
+      issuer: {
+        id: "78d380fd-1b69-4e3c-8bc0-4f57737f7d5f"
+      },
+      recipient: {
+        id: "4e7ba2d7-2302-42f1-9fe4-6b75069f0fc9"
+      },
+      items: [
+        {
+          itemCode: "01010101",
+          quantity: 1,
+          unitOfMeasurementCode: "ACT",
+          description: "Venta",
+          unitPrice: 1230.00,
+          taxObjectCode: "02",
+          itemSku: "venta0001",
+          itemTaxes: [
+            {
+              taxCode: "002",  // IVA
+              taxTypeCode: "Tasa",
+              taxRate: "0.160000",  // 16%
+              taxFlagCode: "T"  // Traslado
+            }
+          ]
+        }
+      ]
+    };
+
+    const apiResponse = await fiscalapi.invoices.create(globalInvoiceByReferences);
+    res.status(200).json(apiResponse);
+  } catch (error) {
+    res.status(500).json({ 
+      succeeded: false, 
+      message: 'Error al crear factura global por referencias', 
+      error 
+    });
+  }
+};
+
+
+
+
+
+
+
 // Crear factura con IVA exento
 export const createInvoiceIvaExento = async (req: Request, res: Response): Promise<void> => {
   try {
