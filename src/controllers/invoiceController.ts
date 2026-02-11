@@ -1026,6 +1026,309 @@ export const createPaymentEurUsd = async (req: Request, res: Response): Promise<
   }
 };
 
+// Crear factura con complemento de nómina por valores
+export const createPayrollComplementByValues = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const payrollInvoice: Invoice = {
+      versionCode: "4.0",
+      series: "F",
+      date: DateTime.now().toFormat("yyyy-MM-dd'T'HH:mm:ss"),
+      paymentMethodCode: "PUE",
+      currencyCode: "MXN",
+      typeCode: "N",
+      expeditionZipCode: "20000",
+      exportCode: "01",
+      issuer: {
+        tin: "FUNK671228PH6",
+        legalName: "KARLA FUENTE NOLASCO",
+        taxRegimeCode: "621",
+        employerData: {
+          employerRegistration: "B5510768108",
+          curp: "XEXX010101MNEXXXA8"
+        },
+        taxCredentials: [
+          {
+            base64File: base64Cert,
+            fileType: 0,
+            password: password
+          },
+          {
+            base64File: base64Key,
+            fileType: 1,
+            password: password
+          }
+        ]
+      },
+      recipient: {
+        tin: "FUNK671228PH6",
+        legalName: "KARLA FUENTE NOLASCO",
+        zipCode: "01160",
+        taxRegimeCode: "605",
+        cfdiUseCode: "CN01",
+        employeeData: {
+          curp: "XEXX010101MNEXXXA8",
+          socialSecurityNumber: "04078873454",
+          laborRelationStartDate: "2024-08-18",
+          seniority: "P54W",
+          satContractTypeId: "01",
+          satTaxRegimeTypeId: "02",
+          employeeNumber: "123456789",
+          department: "GenAI",
+          position: "Sr Software Engineer",
+          satJobRiskId: "1",
+          satPaymentPeriodicityId: "05",
+          satBankId: "012",
+          baseSalaryForContributions: 2828.50,
+          integratedDailySalary: 0.00,
+          satPayrollStateId: "JAL"
+        }
+      },
+      complement: {
+        payroll: {
+          version: "1.2",
+          payrollTypeCode: "O",
+          paymentDate: "2025-08-30",
+          initialPaymentDate: "2025-07-31",
+          finalPaymentDate: "2025-08-30",
+          daysPaid: 30,
+          earnings: {
+            earnings: [
+              {
+                earningTypeCode: "001",
+                code: "1003",
+                concept: "Sueldo Nominal",
+                taxedAmount: 95030.00,
+                exemptAmount: 0.00
+              },
+              {
+                earningTypeCode: "005",
+                code: "5913",
+                concept: "Fondo de Ahorro Aportación Patrón",
+                taxedAmount: 0.00,
+                exemptAmount: 4412.46
+              },
+              {
+                earningTypeCode: "038",
+                code: "1885",
+                concept: "Bono Ingles",
+                taxedAmount: 14254.50,
+                exemptAmount: 0.00
+              },
+              {
+                earningTypeCode: "029",
+                code: "1941",
+                concept: "Vales Despensa",
+                taxedAmount: 0.00,
+                exemptAmount: 3439.00
+              },
+              {
+                earningTypeCode: "038",
+                code: "1824",
+                concept: "Herramientas Teletrabajo (telecom y prop. electri)",
+                taxedAmount: 273.00,
+                exemptAmount: 0.00
+              }
+            ],
+            otherPayments: [
+              {
+                otherPaymentTypeCode: "002",
+                code: "5050",
+                concept: "Exceso de subsidio al empleo",
+                amount: 0.00,
+                subsidyCaused: 0.00
+              }
+            ]
+          },
+          deductions: [
+            {
+              deductionTypeCode: "002",
+              code: "5003",
+              concept: "ISR Causado",
+              amount: 27645.52
+            },
+            {
+              deductionTypeCode: "004",
+              code: "5910",
+              concept: "Fondo de ahorro Empleado Inversión",
+              amount: 4412.46
+            },
+            {
+              deductionTypeCode: "004",
+              code: "5914",
+              concept: "Fondo de Ahorro Patrón Inversión",
+              amount: 4412.46
+            },
+            {
+              deductionTypeCode: "004",
+              code: "1966",
+              concept: "Contribución póliza exceso GMM",
+              amount: 519.91
+            },
+            {
+              deductionTypeCode: "004",
+              code: "1934",
+              concept: "Descuento Vales Despensa",
+              amount: 1.00
+            },
+            {
+              deductionTypeCode: "004",
+              code: "1942",
+              concept: "Vales Despensa Electrónico",
+              amount: 3439.00
+            },
+            {
+              deductionTypeCode: "001",
+              code: "1895",
+              concept: "IMSS",
+              amount: 2391.13
+            }
+          ]
+        }
+      }
+    };
+
+    const apiResponse = await fiscalapi.invoices.create(payrollInvoice);
+    res.status(200).json(apiResponse);
+  } catch (error) {
+    res.status(500).json({ 
+      succeeded: false, 
+      message: 'Error al crear factura con complemento de nómina por valores', 
+      error 
+    });
+  }
+};
+
+// Crear factura con complemento de impuestos locales por valores
+export const createLocalTaxesComplementByValues = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const localTaxesInvoice: Invoice = {
+      versionCode: "4.0",
+      series: "F",
+      date: DateTime.now().toFormat("yyyy-MM-dd'T'HH:mm:ss"),
+      paymentFormCode: "01",
+      currencyCode: "MXN",
+      typeCode: "I",
+      expeditionZipCode: "42501",
+      paymentMethodCode: "PUE",
+      exchangeRate: 1,
+      exportCode: "01",
+      issuer: {
+        tin: "FUNK671228PH6",
+        legalName: "KARLA FUENTE NOLASCO",
+        taxRegimeCode: "621",
+        taxCredentials: [
+          {
+            base64File: base64Cert,
+            fileType: 0,
+            password: password
+          },
+          {
+            base64File: base64Key,
+            fileType: 1,
+            password: password
+          }
+        ]
+      },
+      recipient: {
+        tin: "EKU9003173C9",
+        legalName: "ESCUELA KEMPER URGATE",
+        zipCode: "42501",
+        taxRegimeCode: "601",
+        cfdiUseCode: "G01",
+        email: "someone@somewhere.com"
+      },
+      items: [
+        {
+          itemCode: "01010101",
+          quantity: 9.5,
+          unitOfMeasurementCode: "E48",
+          description: "Invoicing software as a service",
+          unitPrice: 3587.75,
+          taxObjectCode: "02",
+          itemSku: "7506022301697",
+          discount: 255.85,
+          itemTaxes: [
+            {
+              taxCode: "002",
+              taxTypeCode: "Tasa",
+              taxRate: "0.160000",
+              taxFlagCode: "T"
+            }
+          ]
+        },
+        {
+          itemCode: "01010101",
+          quantity: 8,
+          unitOfMeasurementCode: "E48",
+          description: "Software Consultant",
+          unitPrice: 250.85,
+          taxObjectCode: "02",
+          itemSku: "7506022301698",
+          discount: 255.85,
+          itemTaxes: [
+            {
+              taxCode: "002",
+              taxTypeCode: "Tasa",
+              taxRate: "0.160000",
+              taxFlagCode: "T"
+            }
+          ]
+        },
+        {
+          itemCode: "01010101",
+          quantity: 6,
+          unitOfMeasurementCode: "E48",
+          description: "Computer software",
+          unitPrice: 1250.75,
+          taxObjectCode: "02",
+          itemSku: "7506022301699",
+          itemTaxes: [
+            {
+              taxCode: "002",
+              taxTypeCode: "Tasa",
+              taxRate: "0.160000",
+              taxFlagCode: "T"
+            },
+            {
+              taxCode: "002",
+              taxTypeCode: "Tasa",
+              taxRate: "0.106666",
+              taxFlagCode: "R"
+            }
+          ]
+        }
+      ],
+      complement: {
+        localTaxes: {
+          taxes: [
+            {
+              taxName: "CEDULAR",
+              taxRate: "3.00",
+              taxAmount: "6.00",
+              taxFlagCode: "R"
+            },
+            {
+              taxName: "ISH",
+              taxRate: "8.00",
+              taxAmount: "16.00",
+              taxFlagCode: "R"
+            }
+          ]
+        }
+      }
+    };
+
+    const apiResponse = await fiscalapi.invoices.create(localTaxesInvoice);
+    res.status(200).json(apiResponse);
+  } catch (error) {
+    res.status(500).json({ 
+      succeeded: false, 
+      message: 'Error al crear factura con complemento de impuestos locales por valores', 
+      error 
+    });
+  }
+};
+
 // Crear complemento de nómina por referencias
 export const createPayrollByReferences = async (req: Request, res: Response): Promise<void> => {
   try {

@@ -13,6 +13,8 @@ import {
   createPaymentUsdMxn,
   createPaymentMxnUsd,
   createPaymentEurUsd,
+  createPayrollComplementByValues,
+  createLocalTaxesComplementByValues,
   createPayrollByReferences,
   createLocalTaxesInvoiceByReference,
   cancelInvoiceByValues,
@@ -479,6 +481,20 @@ router.post('/create/payment-eur-usd', createPaymentEurUsd);
 
 /**
  * @swagger
+ * /api/invoices/create/payroll/by-values:
+ *   post:
+ *     summary: Crear factura con complemento de nómina por valores
+ *     tags: [Invoices]
+ *     responses:
+ *       200:
+ *         description: Factura con complemento de nómina creada exitosamente
+ *       500:
+ *         description: Error al crear factura con complemento de nómina
+ */
+router.post('/create/payroll/by-values', createPayrollComplementByValues);
+
+/**
+ * @swagger
  * /api/invoices/create/payroll/by-references:
  *   post:
  *     summary: Crear complemento de nómina por referencias
@@ -490,6 +506,20 @@ router.post('/create/payment-eur-usd', createPaymentEurUsd);
  *         description: Error al crear complemento de nómina
  */
 router.post('/create/payroll/by-references', createPayrollByReferences);
+
+/**
+ * @swagger
+ * /api/invoices/create/local-taxes/by-values:
+ *   post:
+ *     summary: Crear factura con complemento de impuestos locales por valores
+ *     tags: [Invoices]
+ *     responses:
+ *       200:
+ *         description: Factura con complemento de impuestos locales creada exitosamente
+ *       500:
+ *         description: Error al crear factura con complemento de impuestos locales
+ */
+router.post('/create/local-taxes/by-values', createLocalTaxesComplementByValues);
 
 /**
  * @swagger
