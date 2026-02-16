@@ -598,18 +598,8 @@ export const createPaymentComplementByValues = async (req: Request, res: Respons
         cfdiUseCode: "CP01",
         email: "someone@somewhere.com"
       },
-      items: [
-        {
-          itemCode: "84111506",
-          quantity: 1,
-          unitOfMeasurementCode: "ACT",
-          description: "Pago",
-          unitPrice: 0,
-          taxObjectCode: "01"
-        }
-      ],
-      payments: [
-        {
+      complement: {
+        payment: {
           paymentDate: "2025-03-31T14:44:56",
           paymentFormCode: "28",
           currencyCode: "MXN",
@@ -642,7 +632,7 @@ export const createPaymentComplementByValues = async (req: Request, res: Respons
             }
           ]
         }
-      ]
+      }
     };
     
     const apiResponse = await fiscalapi.invoices.create(invoice);
@@ -670,8 +660,8 @@ export const createPaymentComplementByReferences = async (req: Request, res: Res
       recipient: {
         id: "bef56254-0892-4558-95c3-f9c8729e4b0e"
       },
-      payments: [
-        {
+      complement: {
+        payment: {
           paymentDate: "2025-03-31T14:44:56",
           paymentFormCode: "28",
           currencyCode: "MXN",
@@ -704,7 +694,7 @@ export const createPaymentComplementByReferences = async (req: Request, res: Res
             }
           ]
         }
-      ]
+      }
     };
 
     const apiResponse = await fiscalapi.invoices.create(invoice);
@@ -751,18 +741,8 @@ export const createPaymentUsdMxn = async (req: Request, res: Response): Promise<
         cfdiUseCode: "CP01",
         email: "someone@somewhere.com"
       },
-      items: [
-        {
-          itemCode: "84111506",
-          quantity: 1,
-          unitOfMeasurementCode: "ACT",
-          description: "Pago",
-          unitPrice: 0,
-          taxObjectCode: "01"
-        }
-      ],
-      payments: [
-        {
+      complement: {
+        payment: {
           paymentDate: "2025-03-31T14:44:56",
           paymentFormCode: "28",
           currencyCode: "USD",
@@ -808,7 +788,7 @@ export const createPaymentUsdMxn = async (req: Request, res: Response): Promise<
             }
           ]
         }
-      ]
+      }
     };
 
     const apiResponse = await fiscalapi.invoices.create(invoice);
@@ -855,18 +835,8 @@ export const createPaymentMxnUsd = async (req: Request, res: Response): Promise<
         cfdiUseCode: "CP01",
         email: "someone@somewhere.com"
       },
-      items: [
-        {
-          itemCode: "84111506",
-          quantity: 1,
-          unitOfMeasurementCode: "ACT",
-          description: "Pago",
-          unitPrice: 0,
-          taxObjectCode: "01"
-        }
-      ],
-      payments: [
-        {
+      complement: {
+        payment: {
           paymentDate: "2025-03-31T14:44:56",
           paymentFormCode: "28",
           currencyCode: "MXN",
@@ -912,7 +882,7 @@ export const createPaymentMxnUsd = async (req: Request, res: Response): Promise<
             }
           ]
         }
-      ]
+      }
     };
 
     const apiResponse = await fiscalapi.invoices.create(invoice);
@@ -959,18 +929,8 @@ export const createPaymentEurUsd = async (req: Request, res: Response): Promise<
         cfdiUseCode: "CP01",
         email: "someone@somewhere.com"
       },
-      items: [
-        {
-          itemCode: "84111506",
-          quantity: 1,
-          unitOfMeasurementCode: "ACT",
-          description: "Pago",
-          unitPrice: 0,
-          taxObjectCode: "01"
-        }
-      ],
-      payments: [
-        {
+      complement: {
+        payment: {
           paymentDate: "2024-06-03T14:44:56",
           paymentFormCode: "28",
           currencyCode: "EUR",
@@ -1016,7 +976,7 @@ export const createPaymentEurUsd = async (req: Request, res: Response): Promise<
             }
           ]
         }
-      ]
+      }
     };
     
     const apiResponse = await fiscalapi.invoices.create(invoice);
