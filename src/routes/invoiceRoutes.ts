@@ -230,6 +230,401 @@ const router = Router();
  *           items:
  *             $ref: '#/components/schemas/PaidInvoice'
  *
+ *     LocalTax:
+ *       type: object
+ *       properties:
+ *         taxName:
+ *           type: string
+ *           description: Nombre del impuesto local
+ *         taxRate:
+ *           type: number
+ *           description: Tasa del impuesto local (2 decimales)
+ *         taxAmount:
+ *           type: number
+ *           description: Monto del impuesto local (2 decimales)
+ *         taxFlagCode:
+ *           type: string
+ *           description: Naturaleza del impuesto (T=Traslado, R=Retenido)
+ *
+ *     LocalTaxesComplement:
+ *       type: object
+ *       properties:
+ *         taxes:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/LocalTax'
+ *           description: Lista de impuestos locales
+ *
+ *     PaymentPaidInvoiceTax:
+ *       type: object
+ *       properties:
+ *         taxCode:
+ *           type: string
+ *           description: Código del impuesto. Catálogo SAT c_Impuesto
+ *         taxTypeCode:
+ *           type: string
+ *           description: Tipo de factor. Catálogo SAT c_TipoFactor
+ *         taxRate:
+ *           type: number
+ *           description: Tasa del impuesto. Catálogo SAT c_TasaOCuota
+ *         taxFlagCode:
+ *           type: string
+ *           description: Naturaleza del impuesto (T=Traslado, R=Retenido)
+ *       required:
+ *         - taxCode
+ *         - taxTypeCode
+ *         - taxRate
+ *         - taxFlagCode
+ *
+ *     PaymentPaidInvoice:
+ *       type: object
+ *       properties:
+ *         uuid:
+ *           type: string
+ *           description: UUID de la factura pagada
+ *         series:
+ *           type: string
+ *           description: Serie de la factura pagada
+ *         number:
+ *           type: string
+ *           description: Folio de la factura pagada
+ *         paymentAmount:
+ *           type: number
+ *           description: Monto pagado en la factura
+ *         currencyCode:
+ *           type: string
+ *           description: Código de la moneda utilizada en la factura pagada
+ *         partialityNumber:
+ *           type: number
+ *           description: Número de parcialidad
+ *         subTotal:
+ *           type: number
+ *           description: Subtotal de la factura pagada
+ *         previousBalance:
+ *           type: number
+ *           description: Saldo anterior de la factura pagada
+ *         remainingBalance:
+ *           type: number
+ *           description: Saldo restante de la factura pagada
+ *         taxObjectCode:
+ *           type: string
+ *           description: Código de obligaciones de impuesto aplicables
+ *         equivalence:
+ *           type: number
+ *           description: Equivalencia de la moneda
+ *         paidInvoiceTaxes:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/PaymentPaidInvoiceTax'
+ *       required:
+ *         - uuid
+ *         - series
+ *         - number
+ *         - paymentAmount
+ *         - currencyCode
+ *         - partialityNumber
+ *         - subTotal
+ *         - previousBalance
+ *         - remainingBalance
+ *         - taxObjectCode
+ *
+ *     PaymentComplement:
+ *       type: object
+ *       properties:
+ *         paymentDate:
+ *           type: string
+ *           description: Fecha de pago (AAAA-MM-DDThh:mm:ss)
+ *         paymentFormCode:
+ *           type: string
+ *           description: Código de la forma de pago. Catálogo SAT c_FormaPago
+ *         currencyCode:
+ *           type: string
+ *           description: Código de la moneda utilizada en el pago. Default MXN
+ *         exchangeRate:
+ *           type: number
+ *           description: Tipo de cambio
+ *         amount:
+ *           type: number
+ *           description: Monto del pago
+ *         operationNumber:
+ *           type: string
+ *           description: Número de operación asignado por el banco
+ *         sourceBankTin:
+ *           type: string
+ *           description: RFC del banco origen
+ *         sourceBankAccount:
+ *           type: string
+ *           description: Cuenta bancaria origen
+ *         targetBankTin:
+ *           type: string
+ *           description: RFC del banco destino
+ *         targetBankAccount:
+ *           type: string
+ *           description: Cuenta bancaria destino
+ *         paidInvoices:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/PaymentPaidInvoice'
+ *       required:
+ *         - paymentDate
+ *         - paymentFormCode
+ *         - currencyCode
+ *         - amount
+ *         - paidInvoices
+ *
+ *     PayrollOvertime:
+ *       type: object
+ *       properties:
+ *         days:
+ *           type: number
+ *           description: Número de días con horas extra
+ *         hoursTypeCode:
+ *           type: string
+ *           description: Código del tipo de horas (01=Dobles, 02=Triples)
+ *         extraHours:
+ *           type: number
+ *           description: Número de horas extra trabajadas
+ *         amountPaid:
+ *           type: number
+ *           description: Monto pagado por las horas extra
+ *       required:
+ *         - days
+ *         - hoursTypeCode
+ *         - extraHours
+ *         - amountPaid
+ *
+ *     PayrollStockOptions:
+ *       type: object
+ *       properties:
+ *         marketPrice:
+ *           type: number
+ *           description: Precio de mercado de la acción
+ *         grantPrice:
+ *           type: number
+ *           description: Precio de ejercicio de la acción
+ *       required:
+ *         - marketPrice
+ *         - grantPrice
+ *
+ *     PayrollEarning:
+ *       type: object
+ *       properties:
+ *         earningTypeCode:
+ *           type: string
+ *           description: Código del tipo de percepción. Catálogo SAT c_TipoPercepcion
+ *         code:
+ *           type: string
+ *           description: Clave de control interno de la percepción
+ *         concept:
+ *           type: string
+ *           description: Concepto de la percepción
+ *         taxedAmount:
+ *           type: number
+ *           description: Monto gravado de la percepción
+ *         exemptAmount:
+ *           type: number
+ *           description: Monto exento de la percepción
+ *         overtime:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/PayrollOvertime'
+ *         stockOptions:
+ *           $ref: '#/components/schemas/PayrollStockOptions'
+ *       required:
+ *         - earningTypeCode
+ *         - code
+ *         - concept
+ *         - taxedAmount
+ *         - exemptAmount
+ *
+ *     PayrollBalanceCompensation:
+ *       type: object
+ *       properties:
+ *         favorableBalance:
+ *           type: number
+ *           description: Saldo a favor
+ *         year:
+ *           type: number
+ *           description: Año del saldo a favor
+ *         remainingFavorableBalance:
+ *           type: number
+ *           description: Saldo a favor remanente
+ *       required:
+ *         - favorableBalance
+ *         - year
+ *         - remainingFavorableBalance
+ *
+ *     PayrollOtherPayment:
+ *       type: object
+ *       properties:
+ *         otherPaymentTypeCode:
+ *           type: string
+ *           description: Código del tipo de otro pago. Catálogo SAT c_TipoOtroPago
+ *         code:
+ *           type: string
+ *           description: Clave de control interno del otro pago
+ *         concept:
+ *           type: string
+ *           description: Concepto del otro pago
+ *         amount:
+ *           type: number
+ *           description: Monto del otro pago
+ *         subsidyCaused:
+ *           type: number
+ *           description: Subsidio causado (para tipo 002)
+ *         balanceCompensation:
+ *           $ref: '#/components/schemas/PayrollBalanceCompensation'
+ *       required:
+ *         - otherPaymentTypeCode
+ *         - code
+ *         - concept
+ *         - amount
+ *
+ *     PayrollRetirement:
+ *       type: object
+ *       properties:
+ *         totalOneTime:
+ *           type: number
+ *           description: Total de pago único
+ *         totalInstallments:
+ *           type: number
+ *           description: Total de parcialidades
+ *         dailyAmount:
+ *           type: number
+ *           description: Monto diario
+ *         accumulableIncome:
+ *           type: number
+ *           description: Ingreso acumulable
+ *         nonAccumulableIncome:
+ *           type: number
+ *           description: Ingreso no acumulable
+ *
+ *     PayrollSeverance:
+ *       type: object
+ *       properties:
+ *         totalPaid:
+ *           type: number
+ *           description: Total pagado
+ *         yearsOfService:
+ *           type: number
+ *           description: Años de servicio
+ *         lastMonthlySalary:
+ *           type: number
+ *           description: Último sueldo mensual ordinario
+ *         accumulableIncome:
+ *           type: number
+ *           description: Ingreso acumulable
+ *         nonAccumulableIncome:
+ *           type: number
+ *           description: Ingreso no acumulable
+ *       required:
+ *         - totalPaid
+ *         - yearsOfService
+ *         - lastMonthlySalary
+ *         - accumulableIncome
+ *         - nonAccumulableIncome
+ *
+ *     PayrollEarnings:
+ *       type: object
+ *       properties:
+ *         earnings:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/PayrollEarning'
+ *         otherPayments:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/PayrollOtherPayment'
+ *         retirement:
+ *           $ref: '#/components/schemas/PayrollRetirement'
+ *         severance:
+ *           $ref: '#/components/schemas/PayrollSeverance'
+ *
+ *     PayrollDeduction:
+ *       type: object
+ *       properties:
+ *         deductionTypeCode:
+ *           type: string
+ *           description: Código del tipo de deducción. Catálogo SAT c_TipoDeduccion
+ *         code:
+ *           type: string
+ *           description: Clave de control interno de la deducción
+ *         concept:
+ *           type: string
+ *           description: Concepto de la deducción
+ *         amount:
+ *           type: number
+ *           description: Monto de la deducción
+ *       required:
+ *         - deductionTypeCode
+ *         - code
+ *         - concept
+ *         - amount
+ *
+ *     PayrollDisability:
+ *       type: object
+ *       properties:
+ *         disabilityDays:
+ *           type: number
+ *           description: Número de días de incapacidad
+ *         disabilityTypeCode:
+ *           type: string
+ *           description: Código del tipo de incapacidad. Catálogo SAT c_TipoIncapacidad
+ *         monetaryAmount:
+ *           type: number
+ *           description: Monto monetario de la incapacidad
+ *       required:
+ *         - disabilityDays
+ *         - disabilityTypeCode
+ *
+ *     PayrollComplement:
+ *       type: object
+ *       properties:
+ *         version:
+ *           type: string
+ *           description: Versión del complemento de nómina. Default 1.2
+ *         payrollTypeCode:
+ *           type: string
+ *           description: Código del tipo de nómina (O=Ordinaria, E=Extraordinaria)
+ *         paymentDate:
+ *           type: string
+ *           description: Fecha de pago de la nómina
+ *         initialPaymentDate:
+ *           type: string
+ *           description: Fecha inicial del periodo de pago
+ *         finalPaymentDate:
+ *           type: string
+ *           description: Fecha final del periodo de pago
+ *         daysPaid:
+ *           type: number
+ *           description: Número de días pagados
+ *         earnings:
+ *           $ref: '#/components/schemas/PayrollEarnings'
+ *         deductions:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/PayrollDeduction'
+ *         disabilities:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/PayrollDisability'
+ *       required:
+ *         - payrollTypeCode
+ *         - paymentDate
+ *         - initialPaymentDate
+ *         - finalPaymentDate
+ *         - daysPaid
+ *
+ *     Complement:
+ *       type: object
+ *       properties:
+ *         localTaxes:
+ *           $ref: '#/components/schemas/LocalTaxesComplement'
+ *         payment:
+ *           $ref: '#/components/schemas/PaymentComplement'
+ *         payroll:
+ *           $ref: '#/components/schemas/PayrollComplement'
+ *
  *     Invoice:
  *       type: object
  *       properties:
@@ -277,8 +672,13 @@ const router = Router();
  *             $ref: '#/components/schemas/InvoiceItem'
  *         payments:
  *           type: array
+ *           deprecated: true
+ *           description: Lista de pagos relacionados a la factura (solo para CFDI 3.3, usar complementos de pago para CFDI 4.0)
  *           items:
  *             $ref: '#/components/schemas/Payment'
+ *         complement:
+ *           $ref: '#/components/schemas/Complement'
+ *           description: Complementos de la factura (nómina, pago, impuestos locales)
  */
 
 /**
