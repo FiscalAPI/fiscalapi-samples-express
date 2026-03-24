@@ -27,7 +27,9 @@ import {
   sendInvoiceByValues,
   sendInvoiceById,
   createFacturaGlobalPorValores,
-  createFacturaGlobalPorReferencias
+  createFacturaGlobalPorReferencias,
+  createLadingComplement,
+  createLadingComplementByReference
 } from '../controllers/invoiceController';
 
 const router = Router();
@@ -1134,6 +1136,34 @@ router.post('/factura-global-por-valores', createFacturaGlobalPorValores);
  */
 router.post('/factura-global-por-referencias', createFacturaGlobalPorReferencias);
 
+/**
+ * @swagger
+ * /api/invoices/create/carta-porte:
+ *   post:
+ *     summary: Crear factura con complemento carta porte (lading complement)
+ *     tags: [Invoices]
+ *     description: Crea una factura de ingreso con complemento carta porte (CCP 3.1) incluyendo ubicaciones, mercancías, autotransporte y figuras de transporte
+ *     responses:
+ *       200:
+ *         description: Factura con complemento carta porte creada exitosamente
+ *       500:
+ *         description: Error al crear factura con complemento carta porte
+ */
+router.post('/create/carta-porte', createLadingComplement);
 
+/**
+ * @swagger
+ * /api/invoices/create/carta-porte-por-referencia:
+ *   post:
+ *     summary: Crear factura con complemento carta porte (lading complement) por referencia
+ *     tags: [Invoices]
+ *     description: Crea una factura de ingreso con complemento carta porte (CCP 3.1) incluyendo ubicaciones, mercancías, autotransporte y figuras de transporte
+ *     responses:
+ *       200:
+ *         description: Factura con complemento carta porte creada exitosamente
+ *       500:
+ *         description: Error al crear factura con complemento carta porte
+ */
+router.post('/create/carta-porte-por-referencia', createLadingComplementByReference);
 
 export default router;
